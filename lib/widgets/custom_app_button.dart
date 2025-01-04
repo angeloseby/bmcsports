@@ -26,7 +26,10 @@ class CustomAppButton extends StatelessWidget {
           ),
           minimumSize: const Size(double.infinity, 52.0)),
       child: isLoading
-          ? const CircularProgressIndicator()
+          ? const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            )
           : Row(
               mainAxisSize: MainAxisSize.min,
               children: [

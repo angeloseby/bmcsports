@@ -25,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -47,13 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 builder: (context, providerSnapshot, child) {
                   if (providerSnapshot.verificationId == null) {
                     return PhoneNumberDetails(
-                        formKey: _formKey,
-                        phoneNumberController: _phoneNumberController,
-                        isKeyboardOpen: isKeyboardOpen);
+                      formKey: _formKey,
+                      phoneNumberController: _phoneNumberController,
+                    );
                   } else {
                     return OTPDetails(
                       phoneNumberController: _phoneNumberController,
-                      isKeyboardOpen: isKeyboardOpen,
                     );
                   }
                 },
@@ -68,16 +66,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
 class OTPDetails extends StatelessWidget {
   final TextEditingController phoneNumberController;
-  final bool isKeyboardOpen;
-  const OTPDetails(
-      {super.key,
-      required this.phoneNumberController,
-      required this.isKeyboardOpen});
+  const OTPDetails({
+    super.key,
+    required this.phoneNumberController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        Image.asset(
+          'assets/illustrations/Enter OTP.gif',
+          width: MediaQuery.of(context).size.width * 0.75,
+        ),
         const Text(
           "Verify the OTP",
           style: TextStyle(
@@ -90,7 +93,7 @@ class OTPDetails extends StatelessWidget {
         ),
         Text(
           "Please enter the OTP sent to\n+91 ${phoneNumberController.text}",
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
         const SizedBox(
           height: 26.0,
@@ -101,10 +104,15 @@ class OTPDetails extends StatelessWidget {
           showCursor: false,
           onSubmit: (value) async {
             try {
-              await context.read<AuthProvider>().signInWithOTP(value);
+              await context.read<AuthProvider>().verifyOTP(value);
             } catch (e) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(e.toString())));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    e.toString(),
+                  ),
+                ),
+              );
             }
           },
           onChange: (value) {},
@@ -117,53 +125,33 @@ class OTPDetails extends StatelessWidget {
         const SizedBox(
           height: 20.0,
         ),
-        Consumer<AuthProvider>(
-          builder: (context, authProvider, child) {
-            return authProvider.resendEnabled
-                ? TextButton(
-                    onPressed: () {
-                      authProvider.setResendEnabled(false);
-                      authProvider
-                          .verifyPhoneNumber(phoneNumberController.text);
-                    },
-                    child: const Text(
-                      "Resend OTP",
-                      style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                : Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      text: "Didn't Receive OTP?",
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                      ),
-                      children: [
-                        const TextSpan(
-                          text: "\nResend in ",
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: "${authProvider.secondsRemaining} seconds",
-                          style: const TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-          },
-        ),
-        SizedBox(
-          height: isKeyboardOpen ? 0 : 300.0,
-        ),
+        // const Center(
+        //   child: Text.rich(
+        //     textAlign: TextAlign.center,
+        //     TextSpan(
+        //       text: "Didn't Receive OTP?",
+        //       style: TextStyle(
+        //         fontSize: 12.0,
+        //       ),
+        //       children: [
+        //         TextSpan(
+        //           text: "\nResend in ",
+        //           style: TextStyle(
+        //             color: AppColors.primaryColor,
+        //             fontWeight: FontWeight.bold,
+        //           ),
+        //         ),
+        //         TextSpan(
+        //           text: "0 seconds",
+        //           style: TextStyle(
+        //             color: AppColors.primaryColor,
+        //             fontWeight: FontWeight.bold,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
@@ -174,13 +162,11 @@ class PhoneNumberDetails extends StatelessWidget {
     super.key,
     required GlobalKey<FormState> formKey,
     required TextEditingController phoneNumberController,
-    required this.isKeyboardOpen,
   })  : _formKey = formKey,
         _phoneNumberController = phoneNumberController;
 
   final GlobalKey<FormState> _formKey;
   final TextEditingController _phoneNumberController;
-  final bool isKeyboardOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +174,15 @@ class PhoneNumberDetails extends StatelessWidget {
       key: _formKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Center(
+            child: Image.asset(
+              'assets/illustrations/Sign up.gif',
+              width: MediaQuery.of(context).size.width * 0.75,
+            ),
+          ),
           const Text(
             "Hi There!",
             style: TextStyle(
@@ -208,7 +202,7 @@ class PhoneNumberDetails extends StatelessWidget {
           ),
           const Text(
             "Please enter a 10-digit valid mobile \nnumber to receive OTP",
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
           ),
           const SizedBox(
             height: 26.0,
@@ -219,30 +213,32 @@ class PhoneNumberDetails extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          const Text.rich(
-            textAlign: TextAlign.center,
-            TextSpan(
-              text: "By proceeding, you agree to the ",
-              style: TextStyle(
-                fontSize: 12.0,
-              ),
-              children: [
-                TextSpan(
-                  text: "\nTerms and Conditions ",
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+          const Center(
+            child: Text.rich(
+              textAlign: TextAlign.center,
+              TextSpan(
+                text: "By proceeding, you agree to the ",
+                style: TextStyle(
+                  fontSize: 12.0,
                 ),
-                TextSpan(text: "and "),
-                TextSpan(
-                  text: "Privacy Policy.",
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
+                children: [
+                  TextSpan(
+                    text: "\nTerms and Conditions ",
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
-              ],
+                  TextSpan(text: "and "),
+                  TextSpan(
+                    text: "Privacy Policy.",
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -254,18 +250,18 @@ class PhoneNumberDetails extends StatelessWidget {
                 onPressed: authProvider.isSendingOtp
                     ? null
                     : () async {
+                        authProvider.setIsSendingOtp(true);
                         if (_formKey.currentState!.validate()) {
-                          authProvider.setIsSendingOtp(true);
                           try {
                             await authProvider
                                 .verifyPhoneNumber(_phoneNumberController.text);
+                            authProvider.setIsSendingOtp(false);
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Failed to send OTP'),
                               ),
                             );
-                          } finally {
                             authProvider.setIsSendingOtp(false);
                           }
                         }
@@ -275,9 +271,6 @@ class PhoneNumberDetails extends StatelessWidget {
                 isLoading: authProvider.isSendingOtp,
               );
             },
-          ),
-          SizedBox(
-            height: isKeyboardOpen ? 0 : 200.0,
           ),
         ],
       ),
