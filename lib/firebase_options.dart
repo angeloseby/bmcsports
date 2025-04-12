@@ -44,39 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAZGcZMCgh4HLt2lz_eoBUwpZ5Bv7yCDZc',
-    appId: '1:295185290409:web:f536499eb3c9309e09c5b8',
-    messagingSenderId: '295185290409',
-    projectId: 'bmcsports-1e831',
-    authDomain: 'bmcsports-1e831.firebaseapp.com',
-    storageBucket: 'bmcsports-1e831.firebasestorage.app',
-    measurementId: 'G-67G4YHYVWV',
+    apiKey: 'AIzaSyAn0_n-xVS4Hl4nE9tYu7Go6l3ZI3qFqt0',
+    appId: '1:1063072137159:web:4d554cd80b4e31e982a3e2',
+    messagingSenderId: '1063072137159',
+    projectId: 'bmcsports2025',
+    authDomain: 'bmcsports2025.firebaseapp.com',
+    storageBucket: 'bmcsports2025.firebasestorage.app',
+    measurementId: 'G-RYCP788QYH',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDwbP6ZlO_JCxtdEr7lZkE-a0OqJdb1GS8',
-    appId: '1:295185290409:android:aee7b9e8ddfc70cc09c5b8',
-    messagingSenderId: '295185290409',
-    projectId: 'bmcsports-1e831',
-    storageBucket: 'bmcsports-1e831.firebasestorage.app',
+    apiKey: 'AIzaSyCuo0tAm1UwouV5Cgjn55_bpAC72iIKwG4',
+    appId: '1:1063072137159:android:927e59ec5df2be0782a3e2',
+    messagingSenderId: '1063072137159',
+    projectId: 'bmcsports2025',
+    storageBucket: 'bmcsports2025.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDTNGnONcwd8y7qaKN-1fHkfdShLGARAy4',
-    appId: '1:295185290409:ios:ec8f6c85b04723ff09c5b8',
-    messagingSenderId: '295185290409',
-    projectId: 'bmcsports-1e831',
-    storageBucket: 'bmcsports-1e831.firebasestorage.app',
+    apiKey: 'AIzaSyAixoYrXnU2BoYcADvy2NB3jY_96t8tnvo',
+    appId: '1:1063072137159:ios:af5a2bd84101905582a3e2',
+    messagingSenderId: '1063072137159',
+    projectId: 'bmcsports2025',
+    storageBucket: 'bmcsports2025.firebasestorage.app',
     iosBundleId: 'com.example.bmcsports',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAZGcZMCgh4HLt2lz_eoBUwpZ5Bv7yCDZc',
-    appId: '1:295185290409:web:a4b0f12eca65dad209c5b8',
-    messagingSenderId: '295185290409',
-    projectId: 'bmcsports-1e831',
-    authDomain: 'bmcsports-1e831.firebaseapp.com',
-    storageBucket: 'bmcsports-1e831.firebasestorage.app',
-    measurementId: 'G-9HGRDT3L8N',
+    apiKey: 'AIzaSyAn0_n-xVS4Hl4nE9tYu7Go6l3ZI3qFqt0',
+    appId: '1:1063072137159:web:4d554cd80b4e31e982a3e2',
+    messagingSenderId: '1063072137159',
+    projectId: 'bmcsports2025',
+    authDomain: 'bmcsports2025.firebaseapp.com',
+    storageBucket: 'bmcsports2025.firebasestorage.app',
+    measurementId: 'G-RYCP788QYH',
   );
+
 }

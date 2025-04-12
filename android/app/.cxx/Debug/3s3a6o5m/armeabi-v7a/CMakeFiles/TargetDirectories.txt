@@ -1,0 +1,2 @@
+C:/Users/Angelo Seby/Desktop/bmcsports/android/app/.cxx/Debug/3s3a6o5m/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Angelo Seby/Desktop/bmcsports/android/app/.cxx/Debug/3s3a6o5m/armeabi-v7a/CMakeFiles/rebuild_cache.dir

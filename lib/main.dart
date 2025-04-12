@@ -1,8 +1,10 @@
 import 'package:bmcsports/firebase_options.dart';
-import 'package:bmcsports/providers/auth.dart';
-import 'package:bmcsports/providers/user.dart';
+import 'package:bmcsports/providers/auth_provider.dart';
+import 'package:bmcsports/providers/slot_provider.dart';
+import 'package:bmcsports/screens/enter_details_screen.dart';
+import 'package:bmcsports/screens/home_screen.dart';
+import 'package:bmcsports/screens/login_screen.dart';
 import 'package:bmcsports/utils/app_colors.dart';
-import 'package:bmcsports/utils/auth_wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +28,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
         ),
-        ChangeNotifierProvider<UserProvider>(
-          create: (_) => UserProvider(),
+        ChangeNotifierProvider<SlotProvider>(
+          create: (_) => SlotProvider(),
         ),
       ],
       child: MaterialApp(
@@ -38,7 +40,12 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "Alliance No. 1",
         ),
-        home: const AuthWrapper(),
+        home: const LoginScreen(),
+        routes: {
+          '/login': (_) => const LoginScreen(),
+          '/home': (_) => const HomeScreen(),
+          '/enterDetails': (_) => const EnterDetailsScreen(),
+        },
       ),
     );
   }

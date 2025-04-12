@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "295185290409",
-    "project_id": "bmcsports-1e831",
-    "storage_bucket": "bmcsports-1e831.firebasestorage.app"
+    "project_number": "1063072137159",
+    "project_id": "bmcsports2025",
+    "storage_bucket": "bmcsports2025.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:295185290409:android:aee7b9e8ddfc70cc09c5b8",
+        "mobilesdk_app_id": "1:1063072137159:android:927e59ec5df2be0782a3e2",
         "android_client_info": {
           "package_name": "com.example.bmcsports"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDwbP6ZlO_JCxtdEr7lZkE-a0OqJdb1GS8"
+          "current_key": "AIzaSyCuo0tAm1UwouV5Cgjn55_bpAC72iIKwG4"
         }
       ],
       "services": {
