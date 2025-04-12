@@ -75,11 +75,12 @@ class AuthProvider extends ChangeNotifier {
     final docSnapshot = await userDoc.get();
 
     if (!docSnapshot.exists) {
-      // Create new user with detailsEntered = false
+      // Create new user with detailsEntered = false and createdAt
       await userDoc.set({
         'phoneNumber': currentUser.phoneNumber,
         'detailsEntered': false,
         'createdBy': 'app',
+        'createdAt': FieldValue.serverTimestamp(), // <-- Added this line
       });
 
       // Navigate to details entry screen
@@ -88,19 +89,11 @@ class AuthProvider extends ChangeNotifier {
       final data = docSnapshot.data()!;
       final detailsEntered = data['detailsEntered'] ?? false;
 
-      print(detailsEntered);
-
       if (detailsEntered) {
         Navigator.pushReplacementNamed(context, '/home');
       } else {
-        print("Navigating to EnterDetailsScreen");
         Navigator.pushReplacementNamed(context, '/enterDetails');
       }
     }
-  }
-
-  Future<void> signOut(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacementNamed(context, '/login'); // or your login route
   }
 }
