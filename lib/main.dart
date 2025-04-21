@@ -1,9 +1,9 @@
 import 'package:bmcsports/firebase_options.dart';
-import 'package:bmcsports/providers/auth_provider.dart';
+import 'package:bmcsports/providers/local_db_provider.dart';
+import 'package:bmcsports/providers/razorpay_payment_provider.dart';
 import 'package:bmcsports/providers/slot_provider.dart';
-import 'package:bmcsports/screens/enter_details_screen.dart';
+import 'package:bmcsports/screens/enter_user_details_screen.dart';
 import 'package:bmcsports/screens/home_screen.dart';
-import 'package:bmcsports/screens/login_screen.dart';
 import 'package:bmcsports/utils/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +25,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider(),
-        ),
         ChangeNotifierProvider<SlotProvider>(
           create: (_) => SlotProvider(),
         ),
+        ChangeNotifierProvider<LocalDbProvider>(
+          create: (_) => LocalDbProvider(),
+        ),
+        ChangeNotifierProvider<RazorpayPaymentProvider>(
+          create: (_) => RazorpayPaymentProvider(),
+        )
       ],
       child: MaterialApp(
         title: 'BMC SPORTS',
@@ -40,11 +43,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "Alliance No. 1",
         ),
-        home: const LoginScreen(),
+        initialRoute: '/enterUserDetails',
         routes: {
-          '/login': (_) => const LoginScreen(),
           '/home': (_) => const HomeScreen(),
-          '/enterDetails': (_) => const EnterDetailsScreen(),
+          '/enterUserDetails': (_) => const EnterUserDetailsScreen(),
         },
       ),
     );
