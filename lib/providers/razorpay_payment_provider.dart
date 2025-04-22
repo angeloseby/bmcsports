@@ -1,3 +1,4 @@
+import 'package:bmcsports/services/local_db_services.dart';
 import 'package:bmcsports/services/razorpay_payment_services.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_web/razorpay_web.dart';
@@ -10,11 +11,19 @@ class RazorpayPaymentProvider with ChangeNotifier {
 
   RazorpayOrderModel? get order => _order;
 
+  VoidCallback? _onPaymentSuccessCallback;
+
+  void setOnPaymentSuccessCallback(VoidCallback callback) {
+    _onPaymentSuccessCallback = callback;
+  }
+
   RazorpayPaymentProvider() {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _onPaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _onPaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _onExternalWallet);
   }
+
+// import LocalDbService
 
   Future<void> initiatePayment(int amount) async {
     isProcessing = true;
@@ -25,15 +34,22 @@ class RazorpayPaymentProvider with ChangeNotifier {
 
     _order = orderData;
 
+    // 🔄 Load user data from SharedPreferences
+    final userDetails = await LocalDbService().getUserDetails();
+    final String email = userDetails['email'] ?? '';
+    final String phone = userDetails['phone'] ?? '';
+    final String name = userDetails['fullName'] ?? '';
+
     _razorpay.open({
-      'key': RazorpayPaymentService.apiKey,
+      'key': "rzp_test_UQBrIhVfRRXj3S",
       'amount': orderData.amount,
-      'name': 'BMC Sports',
-      'description': 'Slot Booking Payment',
+      'name': "BMC SPORTS",
+      'description': 'Turf Booking System',
       'order_id': orderData.id,
       'prefill': {
-        'contact': '1234567890',
-        'email': 'test@example.com',
+        'contact': phone,
+        'email': email,
+        'name': name,
       },
     });
 
@@ -43,7 +59,9 @@ class RazorpayPaymentProvider with ChangeNotifier {
 
   void _onPaymentSuccess(PaymentSuccessResponse response) {
     debugPrint('Payment Successful: ${response.paymentId}');
-    // TODO: Save booking / call confirmation dialog
+    if (_onPaymentSuccessCallback != null) {
+      _onPaymentSuccessCallback!();
+    }
   }
 
   void _onPaymentError(PaymentFailureResponse response) {

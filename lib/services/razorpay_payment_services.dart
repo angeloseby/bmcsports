@@ -3,20 +3,20 @@ import 'package:http/http.dart' as http;
 import '../models/razorpay_order_model.dart';
 
 class RazorpayPaymentService {
-  static const String apiUrl = 'https://api.razorpay.com/v1/orders';
-  static const String apiKey = 'rzp_test_UQBrIhVfRRXj3S';
-  static const String apiSecret = 'AFpylhkWjMugI20tioXypYFI';
+  // Replace this with your actual deployed function URL
+  static const String secretKey = "rzp_test_UQBrIhVfRRXj3S";
+  static const String cloudFunctionUrl =
+      'https://us-central1-bmcsports2025.cloudfunctions.net/createRazorpayOrder';
 
   Future<RazorpayOrderModel?> createOrder(int amount) async {
     try {
+      // Generate a unique receipt ID, here we're using a timestamp
+      final receiptId = 'receipt_${DateTime.now().millisecondsSinceEpoch}';
+
       final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':
-              'Basic ${base64Encode(utf8.encode('$apiKey:$apiSecret'))}',
-        },
-        body: jsonEncode({'amount': amount * 100, 'currency': 'INR'}),
+        Uri.parse(cloudFunctionUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'amount': amount, 'receipt': receiptId}),
       );
 
       if (response.statusCode == 200) {

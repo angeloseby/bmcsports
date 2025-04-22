@@ -1,1 +1,36 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"bmcsports2025","appId":"1:1063072137159:android:927e59ec5df2be0782a3e2","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"bmcsports2025","configurations":{"android":"1:1063072137159:android:927e59ec5df2be0782a3e2","ios":"1:1063072137159:ios:af5a2bd84101905582a3e2","web":"1:1063072137159:web:4d554cd80b4e31e982a3e2","windows":"1:1063072137159:web:4d554cd80b4e31e982a3e2"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "bmcsports2025",
+          "appId": "1:1063072137159:android:927e59ec5df2be0782a3e2",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "bmcsports2025",
+          "configurations": {
+            "android": "1:1063072137159:android:927e59ec5df2be0782a3e2",
+            "ios": "1:1063072137159:ios:af5a2bd84101905582a3e2",
+            "web": "1:1063072137159:web:4d554cd80b4e31e982a3e2",
+            "windows": "1:1063072137159:web:4d554cd80b4e31e982a3e2"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ]
+}
