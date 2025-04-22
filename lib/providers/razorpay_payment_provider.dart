@@ -1,39 +1,29 @@
+import 'package:bmcsports/models/booking_create_model.dart';
+import 'package:bmcsports/providers/booking_provider.dart';
+import 'package:bmcsports/services/local_db_services.dart';
 import 'package:bmcsports/services/razorpay_payment_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:razorpay_web/razorpay_web.dart';
-import '../models/razorpay_order_model.dart';
 
 class RazorpayPaymentProvider with ChangeNotifier {
   final Razorpay _razorpay = Razorpay();
-  RazorpayOrderModel? _order;
   bool isProcessing = false;
 
-  RazorpayOrderModel? get order => _order;
-
-  RazorpayPaymentProvider() {
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _onPaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _onPaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _onExternalWallet);
-  }
-
-  Future<void> initiatePayment(int amount) async {
+  Future<void> initiatePayment(int amount, String orderId) async {
     isProcessing = true;
     notifyListeners();
-
-    final orderData = await RazorpayPaymentService().createOrder(amount);
-    if (orderData == null) return;
-
-    _order = orderData;
+    Map<String, String?> _userDetails = await LocalDbService().getUserDetails();
 
     _razorpay.open({
       'key': RazorpayPaymentService.apiKey,
-      'amount': orderData.amount,
-      'name': 'BMC Sports',
-      'description': 'Slot Booking Payment',
-      'order_id': orderData.id,
+      'amount': amount * 100, // Amount in paise
+      'name': 'BMC SPORTS TURF',
+      'order_id': orderId,
       'prefill': {
-        'contact': '1234567890',
-        'email': 'test@example.com',
+        'phone': _userDetails['phone'],
+        'email': _userDetails['fullName'],
+        'fullName': _userDetails['fullName'],
       },
     });
 
@@ -41,9 +31,13 @@ class RazorpayPaymentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void _onPaymentSuccess(PaymentSuccessResponse response) {
+  void _onPaymentSuccess(
+    PaymentSuccessResponse response,
+    BuildContext context,
+    List<BookingModel> slots,
+  ) {
+    Provider.of<BookingProvider>(context, listen: false).addBookings(slots);
     debugPrint('Payment Successful: ${response.paymentId}');
-    // TODO: Save booking / call confirmation dialog
   }
 
   void _onPaymentError(PaymentFailureResponse response) {

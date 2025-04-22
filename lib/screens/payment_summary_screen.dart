@@ -1,10 +1,13 @@
+import 'package:bmcsports/models/booking_create_model.dart';
 import 'package:bmcsports/models/slot_model.dart';
+import 'package:bmcsports/providers/booking_provider.dart';
 import 'package:bmcsports/providers/razorpay_payment_provider.dart';
 import 'package:bmcsports/utils/app_colors.dart';
 import 'package:bmcsports/utils/slot_time_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_web/razorpay_web.dart';
 
 class PaymentSummaryScreen extends StatefulWidget {
   final DateTime selectedDate;
@@ -27,6 +30,34 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
   void dispose() {
     context.read<RazorpayPaymentProvider>().disposeRazorpay();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final Razorpay _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _onPaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _onPaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _onExternalWallet);
+  }
+
+  void _onPaymentSuccess(
+    PaymentSuccessResponse response,
+    // BuildContext context,
+    // List<BookingModel> bookingSlots,
+  ) {
+    // Provider.of<BookingProvider>(context, listen: false)
+    // .addBookings(bookingSlots);
+    debugPrint('Payment Successful: ${response.paymentId}');
+  }
+
+  void _onPaymentError(PaymentFailureResponse response) {
+    debugPrint('Payment Error: ${response.code} - ${response.message}');
+    // TODO: Show failure dialog
+  }
+
+  void _onExternalWallet(ExternalWalletResponse response) {
+    debugPrint('External Wallet: ${response.walletName}');
   }
 
   double _calculateTotalPrice() {
@@ -103,7 +134,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
                         final totalPrice = _calculateTotalPrice().toInt();
                         context
                             .read<RazorpayPaymentProvider>()
-                            .initiatePayment(totalPrice);
+                            .initiatePayment(totalPrice, 'XXXX-YYYY');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryColor,
