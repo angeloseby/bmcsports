@@ -1,4 +1,5 @@
 import 'package:bmcsports/firebase_options.dart';
+import 'package:bmcsports/providers/booking_provider.dart';
 import 'package:bmcsports/providers/local_db_provider.dart';
 import 'package:bmcsports/providers/razorpay_payment_provider.dart';
 import 'package:bmcsports/providers/slot_provider.dart';
@@ -33,7 +34,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<RazorpayPaymentProvider>(
           create: (_) => RazorpayPaymentProvider(),
-        )
+        ),
+        ChangeNotifierProvider<BookingProvider>(
+          create: (_) => BookingProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'BMC SPORTS',

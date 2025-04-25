@@ -51,6 +51,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
     String bookingId,
     String bookingTime,
     List<SlotModel> selectedSlots,
+    String paymentId,
   ) async {
     try {
       final bookingProvider =
@@ -72,6 +73,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
           customerName: name,
           customerPhoneNumber: phone,
           customerEmail: email,
+          paymentId: paymentId,
           paymentAmount: _calculateTotalPrice(),
           paymentStatus: "Success",
           paymentMode: "Online",
@@ -188,6 +190,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
                             generateBookingId(),
                             getAllSlotTime(widget.selectedSlots).join(','),
                             widget.selectedSlots,
+                            "test_payment_id", // Replace with actual payment ID
                           );
                         });
 
