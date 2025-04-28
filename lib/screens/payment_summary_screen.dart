@@ -3,7 +3,7 @@ import 'package:bmcsports/models/slot_model.dart';
 import 'package:bmcsports/providers/booking_provider.dart';
 import 'package:bmcsports/providers/razorpay_payment_provider.dart';
 import 'package:bmcsports/services/local_db_services.dart';
-import 'package:bmcsports/utils/app_colors.dart';
+import 'package:bmcsports/styles/app_colors.dart';
 import 'package:bmcsports/utils/booking_id_generator.dart';
 import 'package:bmcsports/utils/slot_time_formatter.dart';
 import 'package:flutter/material.dart';

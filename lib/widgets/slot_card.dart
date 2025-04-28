@@ -1,5 +1,5 @@
 import 'package:bmcsports/models/slot_model.dart';
-import 'package:bmcsports/utils/app_colors.dart';
+import 'package:bmcsports/styles/app_colors.dart';
 import 'package:bmcsports/utils/slot_time_formatter.dart';
 import 'package:flutter/material.dart';
 

@@ -38,12 +38,8 @@ class LocalDbProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Clear locally stored user details
-  Future<void> clearUserDetails() async {
-    await _localDbService.clearUserDetails();
-    _fullName = null;
-    _email = null;
-    _phone = null;
-    notifyListeners();
+  /// Check if user details are set in SharedPreferences
+  Future<bool> areUserDetailsSet() async {
+    return await _localDbService.areUserDetailsSet();
   }
 }

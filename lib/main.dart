@@ -5,7 +5,8 @@ import 'package:bmcsports/providers/razorpay_payment_provider.dart';
 import 'package:bmcsports/providers/slot_provider.dart';
 import 'package:bmcsports/screens/enter_user_details_screen.dart';
 import 'package:bmcsports/screens/home_screen.dart';
-import 'package:bmcsports/utils/app_colors.dart';
+import 'package:bmcsports/screens/splash_screen.dart';
+import 'package:bmcsports/styles/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,12 +44,23 @@ class MyApp extends StatelessWidget {
         title: 'BMC SPORTS',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+          colorScheme: const ColorScheme(
+            brightness: Brightness.light,
+            primary: AppColors.primaryColor,
+            onPrimary: Colors.white,
+            secondary: AppColors.secondaryColor,
+            onSecondary: Colors.black,
+            surface: AppColors.surfaceColor,
+            onSurface: AppColors.primaryTextColor,
+            error: AppColors.errorColor,
+            onError: Colors.white,
+          ),
           useMaterial3: true,
           fontFamily: "Alliance No. 1",
         ),
-        initialRoute: '/enterUserDetails',
+        initialRoute: '/splash',
         routes: {
+          '/splash': (_) => const SplashScreen(),
           '/home': (_) => const HomeScreen(),
           '/enterUserDetails': (_) => const EnterUserDetailsScreen(),
         },

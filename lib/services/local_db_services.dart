@@ -27,11 +27,13 @@ class LocalDbService {
     };
   }
 
-  /// Clears user details (optional utility).
-  Future<void> clearUserDetails() async {
+  /// Checks whether all user details (fullName, email, phone) are set.
+  Future<bool> areUserDetailsSet() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyFullName);
-    await prefs.remove(_keyEmail);
-    await prefs.remove(_keyPhone);
+    final fullName = prefs.getString(_keyFullName);
+    final email = prefs.getString(_keyEmail);
+    final phone = prefs.getString(_keyPhone);
+
+    return fullName != null && email != null && phone != null;
   }
 }

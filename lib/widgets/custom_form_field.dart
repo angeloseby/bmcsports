@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bmcsports/utils/app_colors.dart';
+import 'package:bmcsports/styles/app_colors.dart';
 
 class CustomFormField extends StatelessWidget {
   final String label;

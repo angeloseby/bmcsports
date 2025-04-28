@@ -1,7 +1,7 @@
 import 'package:bmcsports/models/slot_model.dart';
 import 'package:bmcsports/providers/razorpay_payment_provider.dart';
 import 'package:bmcsports/screens/payment_summary_screen.dart';
-import 'package:bmcsports/utils/app_colors.dart';
+import 'package:bmcsports/styles/app_colors.dart';
 import 'package:bmcsports/widgets/custom_date_picker.dart';
 import 'package:bmcsports/widgets/slot_card.dart';
 import 'package:flutter/material.dart';

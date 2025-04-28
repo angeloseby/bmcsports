@@ -1,5 +1,5 @@
 import 'package:bmcsports/providers/local_db_provider.dart';
-import 'package:bmcsports/utils/app_colors.dart';
+import 'package:bmcsports/styles/app_colors.dart';
 import 'package:bmcsports/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +46,6 @@ class _EnterUserDetailsScreenState extends State<EnterUserDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
@@ -132,7 +131,6 @@ class _EnterUserDetailsScreenState extends State<EnterUserDetailsScreen> {
                     child: const Text(
                       'Submit',
                       style: TextStyle(
-                        color: AppColors.scaffoldColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
